@@ -1,0 +1,11 @@
+{
+  "name": "homepage-apis",
+  "version": "1.0.0",
+  "description": "APIs to enable HomePage application",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Geocarlos",
+  "license": "MIT"
+}
