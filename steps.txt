@@ -1,0 +1,22 @@
+Dependencies:
+One Possibility:
+- Cognito: userId (cognitoUserId), phone?, e-mail? -> When account is created using Near Account, user should be confirmed automatically.
+- DynamoDB: userId (partitionKey, from Cognito), accounts[]
+
+Another Possibility:
+- NearApps API handles authentication and provides authentication code or JWT token (?), which can be checked by an authorizer for AWS API Gateway
+
+
+
+USER LOGIN - NEAR ACCOUNT EXISTS
+
+/user/{id}
+GET -> HomePage: after getting information from NearApps API, grab HomePage data if used by user before
+
+USER LOGIN - NEAR ACCOUNT DOES NOT EXIST
+
+/user 
+POST -> HomePage: create unique_id for the user in HomePageDB and associate it to the wallet
+body: wallet
+
+USER LOGIN - EMAIL/PHONE
