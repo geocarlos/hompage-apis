@@ -1,0 +1,1 @@
+process.env.USER_TABLE_NAME = 'USER_TEST_TABLE';

@@ -1,10 +1,23 @@
 "use strict";
+const AWS = require('../../libs/aws-sdk');
+
+const USER_TABLE_NAME = process.env.USER_TABLE_NAME;
+
+const db = new AWS.DynamoDB.DocumentClient();
 
 const getUserInfo = async (userId) => {
-  const user = {userId, accounts: ['test']}; // will be fetched from DynamoDB
+
+  const params = {
+    TableName: USER_TABLE_NAME,
+    Key: {
+      userId
+    }
+  }
+
+  const {Item} = await db.get(params).promise();
   return {
     statusCode: 200,
-    body: JSON.stringify(user)
+    body: JSON.stringify(Item)
   };
 }
 

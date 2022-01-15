@@ -1,17 +1,20 @@
-const {handleRequest} = require('./handler');
+const { handleRequest } = require('./handler');
+jest.mock('aws-sdk');
 
 describe('User service', () => {
     test('API responds to GET request with statusCode 200', async () => {
         const response = await handleRequest({
             httpMethod: 'GET',
-            pathParameters: {userId: 'test'}
+            pathParameters: { userId: 'test' }
         });
         expect(response.statusCode).toEqual(200);
     });
     test('Sucessful response contains a list of accounts', async () => {
+        // This is test is relevant, because it assures the Lambda is getting the data from
+        // the Item attribute of the object returned by DynamoDB.
         const response = await handleRequest({
             httpMethod: 'GET',
-            pathParameters: {userId: 'test'}
+            pathParameters: { userId: 'test' }
         });
         expect(response.statusCode).toEqual(200);
         const accounts = JSON.parse(response.body).accounts;

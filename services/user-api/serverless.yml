@@ -9,7 +9,31 @@ provider:
 functions:
   userHandler:
     handler: handler.handleRequest
+    environment:
+      USER_TABLE_NAME:
+        Ref: UserTable
     events:
       - httpApi:
           path: /
           method: get
+resources:
+  Resources:
+    UserTable:
+      Type: AWS::DynamoDB::Table
+          Properties:
+            TableName: ${opt:stage}-user
+            AttributeDefinitions:
+              - AttributeName: email
+                AttributeType: S
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1
+    Outputs:
+      UserTableArn:
+        Value:
+          Ref: UserTable
+        Export:
+          Name: ${opt:stage}-UserTableArn
