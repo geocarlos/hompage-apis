@@ -21,6 +21,19 @@ const getUserInfo = async (userId) => {
   };
 }
 
+const addUserInfo = async () => {
+  const params = {
+    TableName: USER_TABLE_NAME
+  }
+
+  const result = db.put(params).promise();
+
+  return {
+    statusCode: 201,
+    body: JSON.stringify(result)
+  }
+}
+
 module.exports.handleRequest = async (event) => {
 
   if (event && event.httpMethod === "GET") {
@@ -38,10 +51,7 @@ module.exports.handleRequest = async (event) => {
   }
 
   if (event && event.httpMethod === "POST") {
-    return {
-      statusCode: 400,
-      body: 'Nothing'
-    }
+    return addUserInfo();
   }
 
   return {
